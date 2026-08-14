@@ -1,23 +1,825 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+  <style>
+    :root {
+      --primary-color: #0f172a;
+      --secondary-color: #1e293b;
+      --accent-color: #b45309;
+      --accent-hover: #92400e;
+      --bg-light: #f8fafc;
+      --bg-white: #ffffff;
+      --text-main: #334155;
+      --text-dark: #0f172a;
+      --border-color: #e2e8f0;
+      --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.8;
+      color: var(--text-main);
+      background-color: var(--bg-light);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: var(--bg-white);
+      padding: 60px 20px;
+      text-align: center;
+      border-bottom: 5px solid var(--accent-color);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    nav {
+      background-color: var(--bg-white);
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      padding: 10px 15px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    section {
+      background-color: var(--bg-white);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      color: var(--text-dark);
+      border-left: 5px solid var(--accent-color);
+      padding-left: 15px;
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      color: var(--text-dark);
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.95rem;
+      text-align: left;
+    }
+
+    table th {
+      background-color: var(--secondary-color);
+      color: var(--bg-white);
+      padding: 12px 15px;
+      font-weight: 600;
+    }
+
+    table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    table tr:nth-child(even) {
+      background-color: var(--bg-light);
+    }
+
+    /* CSS Graph Styling */
+    .chart-container {
+      margin: 30px 0;
+      background-color: var(--bg-light);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .chart-title {
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-dark);
+    }
+
+    .bar-wrapper {
+      margin-bottom: 15px;
+    }
+
+    .bar-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .bar-outer {
+      background-color: #cbd5e1;
+      border-radius: 4px;
+      height: 24px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .bar-inner {
+      background-color: var(--accent-color);
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1s ease-in-out;
+    }
+
+    .bar-inner.competitor-1 {
+      background-color: #475569;
+    }
+
+    .bar-inner.competitor-2 {
+      background-color: #64748b;
+    }
+
+    /* Calculator Section */
+    .calc-container {
+      background-color: #f1f5f9;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .calc-group {
+      margin-bottom: 20px;
+    }
+
+    .calc-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .calc-select, .calc-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 1rem;
+      background-color: var(--bg-white);
+      color: var(--text-dark);
+    }
+
+    .calc-checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .calc-checkbox-item {
+      background-color: var(--bg-white);
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .calc-checkbox-item input {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+    }
+
+    .calc-result {
+      background-color: var(--primary-color);
+      color: var(--bg-white);
+      padding: 25px;
+      border-radius: 8px;
+      margin-top: 25px;
+    }
+
+    .calc-result h4 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 10px;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .result-row.total {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fbbf24;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 15px;
+      margin-bottom: 0;
+    }
+
+    /* Consultation Form */
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-full {
+      grid-column: span 2;
+    }
+
+    form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+    }
+
+    form button {
+      grid-column: span 2;
+      background-color: var(--accent-color);
+      color: var(--bg-white);
+      padding: 15px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+      background-color: var(--accent-hover);
+    }
+
+    /* FAQ accordion */
+    dl.faq dt {
+      font-weight: 700;
+      color: var(--text-dark);
+      background-color: var(--bg-light);
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 15px;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    dl.faq dd {
+      margin: 0;
+      padding: 15px;
+      border-left: 3px solid var(--accent-color);
+      background-color: var(--bg-white);
+      border-bottom: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      display: none;
+    }
+
+    dl.faq dd.active {
+      display: block;
+    }
+
+    /* Footer and References */
+    footer {
+      background-color: var(--primary-color);
+      color: #94a3b8;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #e2e8f0;
+      text-decoration: none;
+    }
+
+    .references {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #334155;
+      text-align: left;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .references h5 {
+      color: #f1f5f9;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .references ol {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .references li {
+      margin-bottom: 8px;
+    }
+
+    .badge-premium {
+      background-color: var(--accent-color);
+      color: var(--bg-white);
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      border-radius: 4px;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 768px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+      .form-full {
+        grid-column: span 1;
+      }
+      form button {
+        grid-column: span 1;
+      }
+    }
+  </style>
+
+  <!-- JSON-LD Structured Data for Naver SEO & LLM Optimizations -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "제네시스 G90 (Genesis G90)",
+      "image": "https://www.genesis.com/content/dam/genesis-p2/kr/assets/models/g90/genesis-kr-g90-side-view-sedan-vik-black-pc.png",
+      "description": "국산 프리미엄 대형 세단의 정점인 제네시스 G90의 2026년형 공식 가격표, 옵션 정보, 실구매 세금 계산 및 금융 견적 가이드.",
+      "brand": {
+        "@type": "Brand",
+        "name": "제네시스 (Genesis)"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "KRW",
+        "lowPrice": "97480000",
+        "highPrice": "174980000",
+        "offerCount": "4",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "제네시스 G90 3.5 터보 기본형 2WD",
+            "price": "97480000",
+            "priceCurrency": "KRW"
+          },
+          {
+            "@type": "Offer",
+            "name": "제네시스 G90 블랙 에디션 AWD",
+            "price": "129440000",
+            "priceCurrency": "KRW"
+          },
+          {
+            "@type": "Offer",
+            "name": "제네시스 G90 롱휠베이스 AWD",
+            "price": "167690000",
+            "priceCurrency": "KRW"
+          },
+          {
+            "@type": "Offer",
+            "name": "제네시스 G90 롱휠베이스 블랙 AWD",
+            "price": "174980000",
+            "priceCurrency": "KRW"
+          }
+        ]
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "2026년형 제네시스 G90의 기본 가격은 얼마인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "2026년형 제네시스 G90의 기본 모델(가솔린 3.5 터보 2WD)의 시작 가격은 9,748만 원입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "G90 3.5 터보와 48V 일렉트릭 슈퍼차저의 주요 차이점은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "3.5 터보 기본 엔진은 380마력을 발휘하는 반면, 48V 일렉트릭 슈퍼차저를 추가할 경우 전기 압축기를 통해 반응 속도를 단축하여 저속부터 매끄러운 가속을 보장하며 최대 출력이 415마력으로 상승합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "G90 장기렌트 및 리스 이용 시 가장 합리적인 다이렉트 견적 확인 방법은?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "공식 제네시스 할인 프로모션 외에도 신규 가입 혜택, 제휴 캐피탈 금리 비교 및 현금지원, 사은품 구성을 전문 컨설팅 플랫폼을 통해 실시간으로 조율해 보시는 것을 권장해 드립니다."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+</head>
+<body>
+
+<header>
+  <div class="badge-premium">PREMIUM FLAGSHIP SEDAN</div>
+  <h1>2026 제네시스 G90 가격표 및 트림별 옵션 분석 가이드</h1>
+  <p>국산 프리미엄 대형 세단의 정점, 제네시스 G90의 모델별 예상 금액 및 추가 옵션에 따른 실구매 견적 계산기를 활용하여 완벽한 예산을 수립해 보세요.</p>
+</header>
+
+<div class="container">
+  <nav>
+    <a href="#시장포지셔닝">시장 분석 및 포지셔닝</a>
+    <a href="#공식가격표">공식 가격표 및 세부 트림</a>
+    <a href="#옵션가이드">필수 선택 옵션 분석</a>
+    <a href="#견적계산기">실구매가 모의 계산기</a>
+    <a href="#오너후기">실제 오너 후기 및 장단점</a>
+    <a href="#할인노하우">할인 노하우 및 팁</a>
+    <a href="#자주묻는질문">자주 묻는 질문 FAQ</a>
+    <a href="#상담신청">비대면 무료 상담 신청</a>
+  </nav>
+
+  <section id="시장포지셔닝">
+    <h2>1. 2026 제네시스 G90 모델 개요 및 시장 포지셔닝</h2>
+    <p>글로벌 완성차 시장에서 현대자동차의 독립 프리미엄 브랜드 제네시스는 확고한 자리를 잡았습니다. 그중에서도 플래그십 대형 세단 세그먼트를 이끄는 제네시스 G90은 쇼퍼드리븐과 오너드리븐을 넘나드는 세련된 설계와 정숙성으로 독자적인 수요층을 확보했습니다.</p>
+    <p>2026년식으로 선보인 G90은 수입 명차들과 비교했을 때 뛰어난 경제성과 우수한 사양 구성을 확보하고 있습니다. 특히 수입 경쟁 모델인 메르세데스-벤츠 S클래스 혹은 BMW 7시리즈의 최저 기본 가격대가 1억 중후반에서 형성되어 있는 것과 비교할 때, 제네시스 G90 가격 경쟁력은 매우 뛰어납니다. 동급 성능과 고급스러운 첨단 인테리어를 갖추었음에도 약 5000만 원가량 합리적인 가격 체계를 갖추어 합리적인 자산 운용을 지향하는 오너분들 사이에서 독보적인 순위를 수성 중입니다.</p>
+    
+    <div class="chart-container">
+      <div class="chart-title">2026년 플래그십 대형 세단 시작 가격 비교 (단위: 만 원)</div>
+      <div class="bar-wrapper">
+        <div class="bar-label">
+          <span>제네시스 G90 (3.5 터보 2WD 기본형)</span>
+          <span>9,748만 원</span>
+        </div>
+        <div class="bar-outer">
+          <div class="bar-inner" style="width: 58%;"></div>
+        </div>
+      </div>
+      <div class="bar-wrapper">
+        <div class="bar-label">
+          <span>BMW 740i sDrive (가솔린 3.0T)</span>
+          <span>16,080만 원</span>
+        </div>
+        <div class="bar-outer">
+          <div class="bar-inner competitor-1" style="width: 95%;"></div>
+        </div>
+      </div>
+      <div class="bar-wrapper">
+        <div class="bar-label">
+          <span>메르세데스-벤츠 S450 d 4MATIC</span>
+          <span>16,850만 원</span>
+        </div>
+        <div class="bar-outer">
+          <div class="bar-inner competitor-2" style="width: 100%;"></div>
+        </div>
+      </div>
+    </div>
+    <p>포털 사이트 네이버나 구글, 동영상 플랫폼 유튜브 등 다양한 매체를 통해서도 G90 신형에 관한 유지 보수의 편의성 및 수입차 대비 압도적인 옵션 기본 적용 여부가 화두로 떠오르고 있습니다. 특히 수입 플래그십의 경우 필수적인 핵심 운전자 지원 시스템이나 2열 승차 편의성을 누리기 위해서 기본 수천만 원에 달하는 최상위 트림으로 강제 이동해야 하지만, G90은 가솔린 3.5 터보 엔진 탑재 모델에 이미 이중접합 차음 유리와 후석 전동 리클라이닝 등 수준급 사양이 기본 탑재되어 있어 구매자들의 호응을 얻고 있습니다.</p>
+  </section>
+
+  <section id="공식가격표">
+    <h2>2. 2026 제네시스 G90 공식 가격표 및 트림 상세 정보</h2>
+    <p>제네시스 G90은 별도의 트림 명칭을 적용하는 대신, 구동 방식과 내외장 디자인 특화 요소를 담은 컬렉션의 결합 형태로 단순하면서도 직관적인 가격 구조를 설계했습니다. 아래는 개별소비세 기준의 2026년식 기본 사양별 판매 금액 일람표입니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>판매 가격</th>
+          <th>기본 구동 / 엔진 사양</th>
+          <th>공인 연비 (복합)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>제네시스 G90 기본형</td>
+          <td>9,748만 원</td>
+          <td>2WD 후륜구동 / 가솔린 3.5 터보 (380마력)</td>
+          <td>9.3 km/l</td>
+        </tr>
+        <tr>
+          <td>제네시스 G90 Black (블랙 에디션)</td>
+          <td>12,944만 원</td>
+          <td>AWD 사륜구동 / 가솔린 3.5 터보 (380마력)</td>
+          <td>8.3 km/l</td>
+        </tr>
+        <tr>
+          <td>제네시스 G90 롱휠베이스 (LWB)</td>
+          <td>16,769만 원</td>
+          <td>AWD 사륜구동 / 3.5T 48V 일렉트릭 슈퍼차저 (415마력)</td>
+          <td>8.2 km/l</td>
+        </tr>
+        <tr>
+          <td>제네시스 G90 롱휠베이스 블랙</td>
+          <td>17,498만 원</td>
+          <td>AWD 사륜구동 / 3.5T 48V 일렉트릭 슈퍼차저 (415마력)</td>
+          <td>8.2 km/l</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>기본 모델은 가솔린 3.5 터보 엔진을 장착하며 최고출력 380마력을 발휘하여 다이내믹하고도 묵직한 주행 질감을 자랑합니다. 반면 G90 롱휠베이스 모델 및 파워트레인 업그레이드 선택 시 제공되는 G90 3.5 터보 48V 일렉트릭 슈퍼차저 옵션은 48볼트 기반의 일렉트릭 슈퍼차저를 결합해 저속부터 토크 반응성을 최상으로 끌어올리며 우아한 가속력과 415마력의 고성능 주행 퍼포먼스를 제공합니다.</p>
+    <p>특히 젊은 회장님 및 전문직 종사자들을 중심으로 높은 인기를 구가하는 G90 블랙 에디션의 경우 다크 크롬 그릴과 카프리 블루 외장, 한라산 그린 외장 혹은 비크 블랙 외장과 완벽하게 조화를 이루는 특유의 고아한 외관을 연출하여 별도로 차별화된 심미성을 선호하는 프리미엄 유저들의 이목을 한층 끌어당깁니다.</p>
+  </section>
+
+  <section id="옵션가이드">
+    <h2>3. 모델별 필수 옵션 및 선택 품목 가이드</h2>
+    <p>제네시스 G90은 선택 품목의 폭이 대단히 넓고 정교하여 예산과 주행 환경에 최적화된 조합을 찾는 것이 합리적인 지출을 유도하는 필수 조건입니다. 기본 트림에 원하는 개별 장치들을 덧붙이는 과정에서 가격 폭이 수천만 원까지 늘어나므로 필수 장단점을 비교 확인해 두는 것이 권장됩니다.</p>
+    
+    <h3>핵심 권장 패키지 특징 및 기능</h3>
+    <p><strong>멀티 챔버 에어 서스펜션:</strong> 플래그십 세단으로서의 감성 승차감을 완성하는 최우선 선택지입니다. 노면 상태에 따라 실시간으로 댐핑 세기를 조절하며 요철 통과 시 충격을 비약적으로 완충해 줍니다. 능동형 후륜 조향 RWS 기술과 결합하여 회전 반경을 줄여주고 주차 편의성과 차선 변경 시 흔들림 없는 완벽에 가까운 자세 제어를 도울 수 있어 가장 선호도가 높습니다.</p>
+    <p><strong>이지 클로즈 시스템:</strong> 앞좌석과 뒷좌석 문을 손을 뻗어 세게 닫을 필요 없이 센터 콘솔 및 도어 손잡이에 위치한 버튼 클릭 한 번으로 우아하게 전동식으로 닫을 수 있도록 돕는 대표적인 쇼퍼드리븐 전용 장치입니다.</p>
+    <p><strong>뱅앤올룹슨 프리미어 3D 사운드 (ANC-R 기술 포함):</strong> 차량 외부 소음을 마이크로 감지하고 반대 제어 위상의 주파수를 스피커로 방출해 실내 소음을 차단하는 능동형 소음 제어 시스템인 ANC-R이 결합되어 실내를 조용한 클래식 공연장처럼 연출해 줍니다.</p>
+    <p><strong>시그니처 디자인 셀렉션:</strong> 최고급 프라임 나파 가죽 시트와 우드 그레인 가니쉬, 내구성 높은 파이핑 장식, 프레스티지급 마감이 이루어지는 상위 퀼팅 패턴 트림 패키지입니다. 옵시디앙 블랙 내장 구성은 물론 마우이 브라운 내장과 완벽히 호환되어 고급 가죽의 질감을 가장 온전히 향유하는 방법입니다.</p>
+  </section>
+
+  <section id="견적계산기">
+    <h2>4. 제네시스 G90 실구매 비용 계산기 및 금융 견적 가이드</h2>
+    <p>선호하는 트림 조합에 맞춰 세금, 공채 매입비 및 금융 부대비용을 포함한 최종 예상 실구매 가액을 가늠해볼 수 있는 시뮬레이터를 활용해보세요. 개별소비세 기준과 취득세 7%가 완벽하게 동기화되어 실제 예산 도출을 정교하게 도와드립니다.</p>
+
+    <div class="calc-container">
+      <div class="calc-group">
+        <label for="carTrim">1. 기본 트림 모델 선택</label>
+        <select id="carTrim" class="calc-select" onchange="calculatePrice()">
+          <option value="97480000">제네시스 G90 3.5 터보 기본형 (9,748만 원)</option>
+          <option value="101280000">제네시스 G90 3.5 터보 AWD (1억 128만 원)</option>
+          <option value="129440000">제네시스 G90 블랙 에디션 AWD (1억 2,944만 원)</option>
+          <option value="167690000">제네시스 G90 롱휠베이스 AWD (1억 6,769만 원)</option>
+          <option value="174980000">제네시스 G90 롱휠베이스 블랙 AWD (1억 7,498만 원)</option>
+        </select>
+      </div>
+
+      <div class="calc-group">
+        <label>2. 옵션 추가 장착</label>
+        <div class="calc-checkbox-group">
+          <label class="calc-checkbox-item">
+            <input type="checkbox" id="optEngine" value="5930000" onchange="calculatePrice()">
+            <span>48V 일렉트릭 슈퍼차저 (593만 원)</span>
+          </label>
+          <label class="calc-checkbox-item">
+            <input type="checkbox" id="optSuspension" value="5000000" onchange="calculatePrice()">
+            <span>멀티 챔버 에어 서스펜션 + 후륜 조향 (500만 원)</span>
+          </label>
+          <label class="calc-checkbox-item">
+            <input type="checkbox" id="optInterior" value="3000000" onchange="calculatePrice()">
+            <span>시그니처 디자인 셀렉션 (300만 원)</span>
+          </label>
+          <label class="calc-checkbox-item">
+            <input type="checkbox" id="optSound" value="2800000" onchange="calculatePrice()">
+            <span>뱅앤올룹슨 사운드 패키지 (280만 원)</span>
+          </label>
+          <label class="calc-checkbox-item">
+            <input type="checkbox" id="optComfort" value="2500000" onchange="calculatePrice()">
+            <span>뒷좌석 컴포트 패키지 (250만 원)</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="calc-result">
+        <h4>실구매 비용 정산 요약 내역</h4>
+        <div class="result-row">
+          <span>차량 기본 정가</span>
+          <span id="resBasePrice">97,480,000 원</span>
+        </div>
+        <div class="result-row">
+          <span>추가 선택 옵션 총합</span>
+          <span id="resOptPrice">0 원</span>
+        </div>
+        <div class="result-row">
+          <span>순수 출고 차량 가격</span>
+          <span id="resTotalCarPrice">97,480,000 원</span>
+        </div>
+        <div class="result-row">
+          <span>취득세 (취득세율 7% 적용)</span>
+          <span id="resTax">6,823,600 원</span>
+        </div>
+        <div class="result-row">
+          <span>번호판 대행료 및 탁송 부대비용</span>
+          <span>150,000 원</span>
+        </div>
+        <div class="result-row total">
+          <span>최종 예상 인수 금액 (현금기준)</span>
+          <span id="resGrandTotal">104,453,600 원</span>
+        </div>
+        <div class="result-row" style="margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.85rem; color: #cbd5e1;">
+          <span>매월 리스/할부 예상 납 요금 (60개월 기준 / 금리 연 3.9% 산출 방식)</span>
+          <span id="resMonthly">약 1,917,000 원</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="오너후기">
+    <h2>5. 제네시스 G90 장단점 및 실제 오너 후기 분석</h2>
+    <p>차량 구매 전, 커뮤니티나 전문 소모임 오너들의 직접적인 피드백을 검토하는 단계는 실책을 예방하는 훌륭한 방법입니다. 보배드림, 디시인사이드 자동차 갤러리, 에펨코리아 및 펨코 등 다양한 국내 커뮤니티의 검증된 후기 데이터와 실주행 피드백을 엄밀히 취합했습니다.</p>
+
+    <blockquote>
+      <strong>주요 장점 요약</strong><br>
+      일반적인 플래그십 외제 세단과 대등한 정숙성을 가지며, 정비 인프라와 비용 면에서 월등한 편의성을 누릴 수 있다는 평이 대부분입니다. 전국 어디서나 빠르고 대기 없는 현대 원스톱 전담 정비 네트워크 이용이 가능해 예기치 못한 트러블에도 골치를 썩일 확률이 매우 적습니다. 또한 기본형인 제네시스 G90 3.5 터보 트림만으로도 후석 헤드레스트 컴포트 필로우, 이중 차음 등 하이엔드 사양을 대거 충족해 패밀리카로도 널리 추천되고 있습니다.
+    </blockquote>
+
+    <blockquote>
+      <strong>아쉬운 단점 요약</strong><br>
+      대형 세단 특성상 차체 중량이 다소 무거워 막히는 도심 내부에서의 연비 저하 폭이 크다는 점이 단점으로 거론됩니다. 일부 동호회 게시물 등에서는 48V 일렉트릭 슈퍼차저를 보강하지 않은 가솔린 3.5 터보 기본 2WD 모델의 경우 차체 크기 대비 발진 초기 가속이 조용하긴 하나 기민함에서 약간의 무거운 인상을 받을 수 있다는 후기도 있습니다. 따라서 적극적인 고유의 운전 제어 능력을 선호한다면 AWD와 48V 일렉트릭 슈퍼차저 구성을 업그레이드하는 편이 보다 만족스러운 드라이빙 경험을 제시합니다.
+    </blockquote>
+  </section>
+
+  <section id="할인노하우">
+    <h2>6. 제네시스 G90 다이렉트 구매 혜택 및 할인 꿀팁</h2>
+    <p>제네시스 브랜드 특성상 일반 국산 양산 모델과 다르게 정기적인 공식 대폭 할인 혜택 프로모션은 매우 한정적으로 기획됩니다. 하지만 세부적인 할인 적용 경로와 비대면 금융 제휴 구조를 전략적으로 설계한다면, 기대 이상의 차별화된 경제적 이점을 거머쥘 수 있습니다.</p>
+    
+    <h3>스마트한 최저가 인수 노하우 3가지</h3>
+    <ol>
+      <li><strong>다이렉트 견적 전문 앱 및 온라인 어플 비교 활용:</strong> 금융사 간의 이율 격차가 출고가에 따라 월 수십만 원의 편차를 만듭니다. 챗지피티 혹은 제미나이 등 고도화된 최신 AI 검색 분석 도구 등을 활용해 업계 최신 정보를 취합하거나 다이렉트 금융 제휴 사이트를 경유하면 중간 에이전트 수수료가 빠져서 더욱 낮은 월 요금을 제안받을 수 있습니다.</li>
+      <li><strong>법인 리스 및 장기 렌트 세제 혜택 극대화:</strong> 사업자 분들의 경우 감가상각 및 리스 월 요금을 비용 처리함으로써 세금을 한층 합리적으로 감면받을 수 있습니다. 금융사마다 제네시스 장기렌트 신규 가입 혜택으로 고급형 틴팅 상품이나 현금지원, 지원금 프로모션을 전개하고 있어 이를 꼼꼼히 비교해 보는 것이 최고의 저렴한곳, 성지 좌표를 찾는 첩경입니다.</li>
+      <li><strong>패밀리 할인 프로모션 및 카드사 캐시백:</strong> 매달 갱신되는 제네시스 신차 출고 이벤트와 더불어 카드사 연계 결제 시 최대 수백만 원에 준하는 정직한 신차 캐시백, 사은품 및 상품권 증정 이벤트를 적극적으로 고객센터를 통하여 유선 상담 절차로 사전에 더블 체크 하시는 요령이 권장됩니다.</li>
+    </ol>
+  </section>
+
+  <section id="자주묻는질문">
+    <h2>7. 자주 묻는 질문 (FAQ)</h2>
+    <dl class="faq">
+      <dt>Q1. 제네시스 G90 기본 모델의 실제 평균 유지비는 어느 정도 예상해야 하나요?</dt>
+      <dd>A1. 자동차세 연 약 90만 원과 매년 평균 주행 거리 1만5천km 기준 유류비 약 250만 원가량이 산정됩니다. 플래그십 국산 차량 특유의 우수한 자가 보증 프로그램과 현대 블루멤버스 무상 소모품 교환 혜택이 탄탄히 제공되므로, 보증 기간 내 수리 및 기본 부가 정비 비용 지출 걱정은 동급 외제 브랜드 차량에 비해 아주 훌륭한 경제적 장점을 품고 있습니다.</dd>
+
+      <dt>Q2. 2WD 구동 방식과 AWD 방식의 실주행 안정감 차이점은 무엇인가요?</dt>
+      <dd>A2. 제네시스 G90 AWD 구동은 고속 항속 시 혹은 빗길, 겨울철 빙판길 노면을 조향할 때 휠 슬립을 즉시 제어하여 안전 한계를 압도적으로 높여 줍니다. 반면 G90 2WD 방식은 구동계 경량화를 이끌어 동급 대비 복합 공인 연비 측면에서 소폭 우위를 가져갈 수 있고 일상적인 시내와 마른 도로 위주의 안락함에 대단히 능합니다.</dd>
+
+      <dt>Q3. 개인 및 법인 비즈니스로 출고할 때 렌트와 리스 중 어느 방향이 더욱 매끄럽습니까?</dt>
+      <dd>A3. 단순 명의 노출이 부담스럽지 않고 연간 업무 일지 작성 요건 및 세제 혜택에 기반하여 차량 번호판에 하, 호, 배 등이 들어가는 것에 부담이 없다면 장기 렌트 요금제가 초기 세무 처리 면에서 수월합니다. 반면 하이엔드 오너 본연의 품위 유지를 목표로 일반 자가용 전용 번호판 부착이 필수적이라면 금융 리스 혹은 운용 리스 수단을 가장 강력하게 권장하고 싶습니다.</dd>
+    </dl>
+  </section>
+
+  <section id="상담신청">
+    <h2>8. 제네시스 G90 맞춤 컨설팅 및 시승 견적 문의</h2>
+    <p>가장 합리적인 비용 산정부터 전국 대리점 실시간 즉시 인도 가능 차량 리스트 파악까지 전문 컨설턴트가 최적의 매칭 포트폴리오를 구성해 드립니다. 아래의 양식을 편안하게 작성해 주시면 1영업일 이내에 순차적으로 맞춤 상담을 제공해 드리겠습니다.</p>
+    
+    <form action="/submit-g90" method="POST">
+      <div class="calc-group">
+        <label for="userName">성함</label>
+        <input type="text" id="userName" name="userName" placeholder="예: 홍길동" required>
+      </div>
+
+      <div class="calc-group">
+        <label for="userPhone">연락처 (안심번호 지원)</label>
+        <input type="tel" id="userPhone" name="userPhone" placeholder="010-0000-0000" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
+      </div>
+
+      <div class="calc-group">
+        <label for="selectModel">관심 차종 및 구동계</label>
+        <select id="selectModel" name="selectModel" required>
+          <option value="">원하시는 모델을 선택하세요</option>
+          <option value="g90-2wd">제네시스 G90 가솔린 3.5 터보 2WD</option>
+          <option value="g90-awd">제네시스 G90 가솔린 3.5 터보 AWD</option>
+          <option value="g90-black">제네시스 G90 블랙 에디션 AWD</option>
+          <option value="g90-lwb">제네시스 G90 롱휠베이스 AWD</option>
+        </select>
+      </div>
+
+      <div class="calc-group">
+        <label for="financeType">희망 구매 방식</label>
+        <select id="financeType" name="financeType" required>
+          <option value="">이용 방식을 선택하세요</option>
+          <option value="cash">일시불 현금 결제</option>
+          <option value="installment">일반 다이렉트 할부</option>
+          <option value="lease">품격 운용 리스</option>
+          <option value="rent">경제형 장기 렌트</option>
+        </select>
+      </div>
+
+      <div class="calc-group form-full">
+        <label for="additionalRequest">추가 요청 내용 (필수 선택 옵션 또는 상담 원하시는 시간대 등)</label>
+        <textarea id="additionalRequest" name="additionalRequest" rows="4" placeholder="예: 멀티 챔버 에어 서스펜션과 시그니처 디자인 셀렉션을 고민 중입니다. 법인 명의 리스 혜택 견적 비교를 원합니다."></textarea>
+      </div>
+
+      <button type="submit">G90 맞춤 실시간 견적 받아보기</button>
+    </form>
+  </section>
+</div>
+
+  
+<script>
+  // FAQ Accordion Functionality
+  const dts = document.querySelectorAll('dl.faq dt');
+  dts.forEach(dt => {
+    dt.addEventListener('click', () => {
+      const dd = dt.nextElementSibling;
+      dd.classList.toggle('active');
+    });
+  });
+
+  // Price Calculation Function
+  function calculatePrice() {
+    const baseTrimSelect = document.getElementById('carTrim');
+    const basePrice = parseInt(baseTrimSelect.value);
+
+    // Option checkboxes
+    const optEngine = document.getElementById('optEngine');
+    const optSuspension = document.getElementById('optSuspension');
+    const optInterior = document.getElementById('optInterior');
+    const optSound = document.getElementById('optSound');
+    const optComfort = document.getElementById('optComfort');
+
+    let optionSum = 0;
+
+    // Check conditions - Long Wheelbase models already have Supercharger and Air Suspension as standard
+    const isLWB = basePrice >= 167690000;
+
+    if (isLWB) {
+      optEngine.checked = false;
+      optEngine.disabled = true;
+      optSuspension.checked = false;
+      optSuspension.disabled = true;
+    } else {
+      optEngine.disabled = false;
+      optSuspension.disabled = false;
+    }
+
+    if (!optEngine.disabled && optEngine.checked) optionSum += parseInt(optEngine.value);
+    if (!optSuspension.disabled && optSuspension.checked) optionSum += parseInt(optSuspension.value);
+    if (optInterior.checked) optionSum += parseInt(optInterior.value);
+    if (optSound.checked) optionSum += parseInt(optSound.value);
+    if (optComfort.checked) optionSum += parseInt(optComfort.value);
+
+    const totalCarPrice = basePrice + optionSum;
+    const tax = Math.round(totalCarPrice * 0.07);
+    const grandTotal = totalCarPrice + tax + 150000; // adding 150k for basic registration fee
+
+    // Update UI
+    document.getElementById('resBasePrice').innerText = basePrice.toLocaleString() + " 원";
+    document.getElementById('resOptPrice').innerText = optionSum.toLocaleString() + " 원";
+    document.getElementById('resTotalCarPrice').innerText = totalCarPrice.toLocaleString() + " 원";
+    document.getElementById('resTax').innerText = tax.toLocaleString() + " 원";
+    document.getElementById('resGrandTotal').innerText = grandTotal.toLocaleString() + " 원";
+
+    // Monthly Lease Estimation Formula: Roughly (Total Car Price / 60) + Interest
+    const monthlyRate = 0.039 / 12;
+    const n = 60;
+    const monthlyInstallment = (totalCarPrice * monthlyRate * Math.pow(1 + monthlyRate, n)) / (Math.pow(1 + monthlyRate, n) - 1);
+    
+    document.getElementById('resMonthly').innerText = "약 " + Math.round(monthlyInstallment).toLocaleString() + " 원";
+  }
+
+  // Initial Call
+  calculatePrice();
+</script>
+
+  
